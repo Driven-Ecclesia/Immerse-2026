@@ -522,6 +522,34 @@
     .field-row{grid-template-columns:1fr;}
     .reg-form{padding:26px;}
   }
+  /* Gallery hover + click enlarge */
+.gallery-item img{
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+.gallery-item:hover img{
+  transform: scale(1.08);
+}
+.lightbox-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(20,18,14,0.92);
+  z-index:999;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  cursor:zoom-out;
+}
+.lightbox-overlay.active{
+  display:flex;
+}
+.lightbox-overlay img{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  border-radius:2px;
+}
 </style>
 </head>
 <body>
@@ -795,7 +823,11 @@
     </div>
   </div>
 </footer>
-
+  
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="Enlarged photo">
+</div>
+  
 <script>
   const burgerBtn = document.getElementById('burgerBtn');
   const menuOverlay = document.getElementById('menuOverlay');
@@ -839,6 +871,20 @@
     });
   });
 
+  
+// Click-to-enlarge gallery lightbox
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', function(){
+    document.getElementById('lightboxImg').src = this.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+  
   function fileToBase64(file){
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
