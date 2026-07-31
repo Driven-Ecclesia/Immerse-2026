@@ -407,7 +407,40 @@
     color:var(--brass-light);
     margin-top:6px;
   }
-
+  .account-details{
+  margin-top:18px;
+  padding:16px 18px;
+  background:rgba(247,244,236,0.06);
+  border:1px solid rgba(247,244,236,0.15);
+  border-radius:4px;
+}
+.account-details .eyebrow{color:rgba(247,244,236,0.55);margin-bottom:10px;}
+.account-details .acc-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:12px;
+  margin-bottom:8px;
+}
+.account-details .acc-row:last-child{margin-bottom:0;}
+.account-details .acc-label{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:rgba(247,244,236,0.5);
+}
+.account-details .acc-value{
+  font-family:'Fraunces', serif;
+  font-size:1rem;
+  color:var(--brass-light);
+  text-align:right;
+}
+.account-details .acc-number{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:1.15rem;
+  letter-spacing:0.04em;
+}
   .reg-form{
     background:#f7f4ec;
     color:var(--charcoal);
@@ -742,6 +775,21 @@
           <div class="eyebrow">Retreat Fee</div>
           <div class="amount">₦10,000</div>
         </div>
+        <div class="account-details">
+          <div class="eyebrow">Account Details</div>
+          <div class="acc-row">
+    <span class="acc-label">Account Number</span>
+    <span class="acc-value acc-number">2046768957</span>
+  </div>
+  <div class="acc-row">
+    <span class="acc-label">Account Name</span>
+    <span class="acc-value">Aluko Mary Oyinbrakemi</span>
+  </div>
+  <div class="acc-row">
+    <span class="acc-label">Bank</span>
+    <span class="acc-value">Kuda MFB</span>
+  </div>
+</div>
       </div>
 
       <form class="reg-form" id="regForm">
