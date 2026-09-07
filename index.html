@@ -871,20 +871,19 @@
         </div>
 
         <div class="field">
-          <label>Have You Made Payment?</label>
-          <div class="radio-group">
-            <label class="radio-option"><input type="radio" name="paid" value="yes" id="paidYes" required> Yes</label>
-            <label class="radio-option"><input type="radio" name="paid" value="no" id="paidNo" required> No</label>
-          </div>
+          <label class="radio-option" style="font-size:0.95rem;">
+            <input type="checkbox" id="paidConfirm" name="paid" value="yes" required>
+            I confirm I have made payment of ₦10,000 to the account above.
+          </label>
         </div>
 
-        <div class="field" id="receiptField" style="display:none;">
+        <div class="field" id="receiptField">
           <label for="receipt">Upload Screenshot of Payment Receipt</label>
-          <input type="file" id="receipt" name="receipt" accept="image/*">
+          <input type="file" id="receipt" name="receipt" accept="image/*" required>
         </div>
 
         <button type="submit" class="submit-btn" id="submitBtn">Register Now</button>
-        <div class="form-note" id="formNote"><div class="form-note" id="formNote">Your details will be recorded. Please make payment to the account above and confirm above whether you've paid.</div></div>
+        <div class="form-note" id="formNote">Your details will be recorded. Please make payment to the account above and confirm above whether you've paid.</div>
       </form>
     </div>
   </div>
@@ -933,20 +932,6 @@
   const formNote = document.getElementById('formNote');
   const receiptField = document.getElementById('receiptField');
   const receiptInput = document.getElementById('receipt');
-
-  // Show the receipt upload field only when "Yes" is picked
-  document.querySelectorAll('input[name="paid"]').forEach(radio => {
-    radio.addEventListener('change', function(){
-      if (this.value === 'yes' && this.checked) {
-        receiptField.style.display = 'block';
-        receiptInput.setAttribute('required', 'required');
-      } else if (this.value === 'no' && this.checked) {
-        receiptField.style.display = 'none';
-        receiptInput.removeAttribute('required');
-        receiptInput.value = '';
-      }
-    });
-  });
 
 // Single-image slider — Relive The Experience
 const sliderSlides = document.querySelectorAll('.slider-slide');
@@ -1038,9 +1023,14 @@ function closeLightbox(){
 
       if (result.result === "success") {
         regForm.reset();
-        receiptField.style.display = 'none';
         submitBtn.textContent = "Registered ✓";
+        formNote.style.color = "";
         formNote.textContent = "Thank you! Your registration has been received. We'll contact you with payment details shortly.";
+      } else if (result.result === "duplicate") {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Register Now";
+        formNote.style.color = "#b23b3b";
+        formNote.textContent = "It looks like you've already registered with this email or phone number. If this is a mistake, please contact us directly.";
       } else {
         throw new Error(result.error || "Unknown error");
       }
